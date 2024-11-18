@@ -23,12 +23,8 @@ add_link(){
 	# retrieve the existing tuntap interface
 	exp=$(ip -br a | grep lig)
 	verify=$(ip link show | grep lig)
-	#created=$(sudo ip tuntap add user $USER mode tun ligolo 2>&1)
-	#if [[ $exp == *"lig"* ]]; then
 	if echo "$verify" | grep -q "ligolo"; then
 		echo -e '\033[31m[x] ligolo/lig interface already exists\n\033[0m'
-	#elif echo "$created" | grep -q "Device or resource busy"; then
-	#	echo -e '\033[31m[-] ligolo/lig already created!\n\033[0m'
 	elif [ -z "$verify" ]; then
 		sudo ip tuntap add user $USER mode tun ligolo
 		sudo ip link set ligolo up 
