@@ -4,7 +4,7 @@ It is easy to use and had to share it for me not to lose it again because I am l
 It is straight forward and really easy to use
 
 ### Requirement
-The only requirement so far is to have root access or password to be able to make it work. If you are having issues running the commands you are proably missing `iproute` packages.
+The only requirement so far is to have root access or password to be able to make it work. If you are having issues running the commands you are proably missing `iproute` or `iproute2` package depending on your OS.
 
 On Debian/Ubuntu-based distributions:
 ```
@@ -29,7 +29,8 @@ yay -S iproute2
 ```
 ## Usage
 Very easy to use, so that you don't have to type these everytime. You can add one or delete one. Your choice.
-Once installed, give it executable permissions:
+Once installed, give it executable permissions. Also makesure to have `ligolo-ng` installed and the proxy having the name `ligolo-proxy` in your PATH.
+
 ```bash
 chmod +x ligolo-setup.sh
 ```
@@ -39,8 +40,11 @@ Once this step is done we are ready to roll, now just execute it and make a choi
 ```
 Here are some screenshots:
 
-![image](https://github.com/user-attachments/assets/41696e52-f23e-45cc-9f99-dab4508d62ff)
+![alt text](image.png)
 
+The script will ask you to choose an option and then it will do the job for you. But if you are having issues, just run the script again and it will ask you again. 
+
+P.S: I am not responsible for any damage or loss of data that might happen if you are using this script. Use it at your own risk. Always make sure that you added the tuntap interface and the route before starting the proxy. Otherwise, you might end up with errors and not being able to use the proxy or the script.
 
 Hope it helps someone who is also tired or too much in a rush of typing those two commands. 
 Planning on adding functionalities as I go because `ligolo-ng` is such a powerfull tool and makes a lot of things easier
