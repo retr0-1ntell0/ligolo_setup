@@ -1,7 +1,7 @@
 ## Ligolo setup commands
 I love ligolo and love using it. This small bash script helps me with running the initial setup for adding a new tuntap device on my OS.
 It is easy to use and had to share it for me not to lose it again because I am lazy running these commands everytime I want to use ligolo.
-It is straight forward and really easy to use
+It is straight forward and really easy to use.
 
 ### Requirement
 The only requirement so far is to have root access or password to be able to make it work. If you are having issues running the commands you are proably missing `iproute` or `iproute2` package depending on your OS.
@@ -29,7 +29,7 @@ yay -S iproute2
 ```
 ## Usage
 Very easy to use, so that you don't have to type these everytime. You can add one or delete one. Your choice.
-Once installed, give it executable permissions. Also makesure to have `ligolo-ng` installed and the proxy having the name `ligolo-proxy` in your PATH.
+Once installed, give it executable permissions. Also make sure to have `ligolo-ng` installed and the proxy having the name `ligolo-proxy` in your PATH.
 
 ```bash
 chmod +x ligolo-setup.sh
