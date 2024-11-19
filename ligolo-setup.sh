@@ -27,7 +27,7 @@ add_link(){
 		echo -e '\033[31m[x] ligolo/lig interface already exists\n\033[0m'
 	elif [ -z "$verify" ]; then
 		sudo ip tuntap add user $USER mode tun ligolo
-		sudo ip link set ligolo up 
+		#sudo ip link set ligolo up ;;No more need for this
 		echo -ne '\033[0;32m[+] ligolo/lig interface created successfully!\n\033[0m'
 		ip -br a | grep lig | xargs -I {} echo -e "\033[0;32m{}\n\033[0m"
 	fi
@@ -63,7 +63,7 @@ add_route(){
 			read addedroute
 
 			if validate_cidr "$addedroute"; then
-				output=$(sudo ip route add $addedroute dev $DEVICE 2>&1)
+				output=$(sudo ip route add $addedroute dev $DEV 2>&1)
 				break
 			else
 				echo -en '\033[31m\n[x] Invalid CIDR notation. Please enter a valid IP in the format 0.0.0.0/24.\n\033[0m'
@@ -72,12 +72,13 @@ add_route(){
 
 		if echo "$output" | grep -q "RTNETLINK answers: File exists"; then 
 			echo -ne "\033[0;31m\n[x] Error: Route already exists!\nHere is the existing route => $(ip route | grep lig)\n\033[0m"
+			ip route | grep lig | xargs -I {} echo -e "\033[0;32m{}\033[0m"
 		elif echo "$output" | grep -q "Cannot find device"; then
 			echo -ne "\033[31m\n[x] Error: Device does not exist!\n\033[0m"
 			echo -e "\033[38;5;214m[-] Make sure you have created a new tuntap interface first.\n\033[0m"
 		else
 			echo -e "\033[0;32m\n[+] Success: Route added successfully!\nHere is the newly added route: \033[0m"
-			ip route | grep $DEVICE | xargs -I {} echo -e "\033[0;32m{}\033[0m"
+			ip route | grep lig | xargs -I {} echo -e "\033[0;32m{}\033[0m"
 		fi
 	fi
 }
@@ -87,11 +88,10 @@ get_info(){
 	exp=$(ip -br a | grep lig | awk '{print $1}')
 	if echo "$exp" | grep -q "ligolo"; then
 		echo -e '\033[0;32m\n\033[0;38;5;214m[+] Ligolo interface information:\n\033[0m'
-		ip -br a | grep lig | xargs -I {} echo -e "\033[0;32m{}\n\033[0m"
-		echo -e '\n\033[0;32m\n\033[0;38;5;214m[+] Ligolo routes:\n\033[0m'
-		ip route | grep $exp | xargs -I {} echo -e "\033[0;32m{}\033[0m"
-		echo -e '\n\033[0;32m\n\033[0;38;5;214m[+] Ligolo ARP table:\n\033[0m'
-		ip neigh | grep $exp | xargs -I {} echo -e "\033[0;32m{}\033[0m"
+		#ip -br a | grep lig | xargs -I {} echo -e "\033[0;32m{}\n\033[0m" # No more need for this
+		ifconfig| grep lig -A 5 | xargs -I {} echo -e "\033[0;32m{}\033[0m\n"
+		echo -e '\033[0;32m\n\033[0;38;5;214m[+] Ligolo routes:\n\033[0m'
+		ip route | grep $exp | xargs -I {} echo -e "\033[0;32m{}\n\033[0m"
 	elif [ -z "$exp" ]; then
 		echo -e '\033[0;31m[x] ligolo/lig interface does not exists\n\033[0m'
 		echo -e "\033[38;5;214m[-] Can't get the information. Please create a new tuntap interface first.\n\033[0m"
