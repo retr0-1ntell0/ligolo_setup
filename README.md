@@ -45,7 +45,7 @@ Here are some screenshots:
 
 The script will ask you to choose an option and then it will do the job for you. But if you are having issues, just run the script again and it will ask you again. 
 
-> P.S: I am not responsible for any damage or loss of data that might happen if you are using this script, which is doubt will ever will. Use it at your own risk. Always make sure that you added the `tuntap` interface and the route before starting the proxy. Otherwise, you might end up not being able to use the proxy or the script.
+> P.S: I am not responsible for any damage or loss of data that might happen if you are using this script, which I doubt will ever happen. Use it at your own risk. Always make sure that you added the `tuntap` interface and the route before starting the proxy. Otherwise, you might end up not being able to use the proxy or the script.
 
 Hope it helps someone who is also tired of those commands or too much in a rush of typing those commands. 
 Planning on adding functionalities as I go because `ligolo-ng` is such a powerfull tool and makes a lot of things easier regarding pivoting.
