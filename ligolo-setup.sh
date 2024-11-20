@@ -27,7 +27,7 @@ add_link(){
 		echo -e '\033[31m[x] ligolo/lig interface already exists\n\033[0m'
 	elif [ -z "$verify" ]; then
 		sudo ip tuntap add user $USER mode tun ligolo
-		#sudo ip link set ligolo up ;;No more need for this
+		sudo ip link set ligolo up 
 		echo -ne '\033[0;32m[+] ligolo/lig interface created successfully!\n\033[0m'
 		ip -br a | grep lig | xargs -I {} echo -e "\033[0;32m{}\n\033[0m"
 	fi
@@ -89,7 +89,7 @@ get_info(){
 	if echo "$exp" | grep -q "ligolo"; then
 		echo -e '\033[0;32m\n\033[0;38;5;214m[+] Ligolo interface information:\n\033[0m'
 		#ip -br a | grep lig | xargs -I {} echo -e "\033[0;32m{}\n\033[0m" # No more need for this
-		ifconfig| grep lig -A 5 | xargs -I {} echo -e "\033[0;32m{}\033[0m\n"
+		ifconfig | grep lig -A 5 | xargs -I {} echo -e "\033[0;32m{}\033[0m\n"
 		echo -e '\033[0;32m\n\033[0;38;5;214m[+] Ligolo routes:\n\033[0m'
 		ip route | grep $exp | xargs -I {} echo -e "\033[0;32m{}\n\033[0m"
 	elif [ -z "$exp" ]; then
@@ -183,3 +183,5 @@ $$$$$$$$\$$ \$$$$$$$ \$$$$$$  $$ \$$$$$$  |     \$$$$$$  \$$$$$$$\ \$$$$  \$$$$$
 \n\033[0m'
 menu
 
+# delete routecoming soon
+#sudo ip route del 0.0.0.0/24 dev ligolo
