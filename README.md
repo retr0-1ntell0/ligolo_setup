@@ -30,6 +30,7 @@ yay -S iproute2
 ## Usage
 Very easy to use, so that you don't have to type these everytime. You can add one or delete one. Your choice.
 Once installed, give it executable permissions. Also make sure to have `ligolo-ng` installed and the proxy having the name `ligolo-proxy` in your PATH.
+> Here is a link to the `ligolo-ng` [binaries](https://github.com/nicocha30/ligolo-ng/releases)
 
 ```bash
 chmod +x ligolo-setup.sh
@@ -44,10 +45,17 @@ Here are some screenshots:
 
 The script will ask you to choose an option and then it will do the job for you. But if you are having issues, just run the script again and it will ask you again. 
 
-P.S: I am not responsible for any damage or loss of data that might happen if you are using this script. Use it at your own risk. Always make sure that you added the tuntap interface and the route before starting the proxy. Otherwise, you might end up with errors and not being able to use the proxy or the script.
+> P.S: I am not responsible for any damage or loss of data that might happen if you are using this script, which is doubt will ever will. Use it at your own risk. Always make sure that you added the `tuntap` interface and the route before starting the proxy. Otherwise, you might end up not being able to use the proxy or the script.
 
-Hope it helps someone who is also tired or too much in a rush of typing those two commands. 
-Planning on adding functionalities as I go because `ligolo-ng` is such a powerfull tool and makes a lot of things easier
+Hope it helps someone who is also tired of those commands or too much in a rush of typing those commands. 
+Planning on adding functionalities as I go because `ligolo-ng` is such a powerfull tool and makes a lot of things easier regarding pivoting.
 
 Keep hacking and enjoy 😄
 
+## Improvements
+@TODO
+This is not its final form, it can always get better.
+* [ ] Add a way to delete ligolo routes.
+* [ ] Add a verification/confirmation of the route input.
+* [ ] Do not start the `ligolo-proxy` without a new route on the interface.
+* [ ] Make a video demo
