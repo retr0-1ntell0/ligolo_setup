@@ -125,44 +125,46 @@ start_proxy(){
 
 # menu function
 menu(){
-	echo -e '\033[0;34mWhat do you want to do ?\n\n1. Add a new tuntap interface: \n2. Delete a tuntap interface: \n3. Add a new route: \n4. Start ligolo-proxy: \n\033[0m'
-	echo -e '\033[0;34mPress i or I to verify the `ligolo` interface\nPress q or Q to quit and Ctrl+C to stop the script\033[0m\n'
-	echo -ne '\033[0;34mSelect an option: \033[0m'
-	read option
+	while true; do
+		echo -e '\033[0;34mWhat do you want to do ?\n\n1. Add a new tuntap interface: \n2. Delete a tuntap interface: \n3. Add a new route: \n4. Start ligolo-proxy: \n\033[0m'
+		echo -e '\033[0;34mPress i or I to verify the `ligolo` interface\nPress q or Q to quit and Ctrl+C to stop the script\033[0m\n'
+		echo -ne '\033[0;34mSelect an option: \033[0m'
+		read option
 
-	case $option in
-	1) 
-		add_link
-		menu
-		;;
-	2) 
-		delete_link
-		menu
-		;;
-	3) 
-		add_route
-		menu
-		;;
+		case $option in
+		1) 
+			add_link
+			menu
+			;;
+		2) 
+			delete_link  
+			menu
+			;;
+		3) 
+			add_route
+			menu
+			;;
 
-	4) 
-		start_proxy;;
+		4) 
+			start_proxy;;
 
-	[iI]) 
-		echo -e '\033[0;32m\n[+] Interface information:\n    ----------------------\n\033[0m'
-		get_info
-		menu
-		return
-		;;
-	[qQ]) 
-		echo -e '\033[38;5;214m\n[***] Exiting...See ya! [***]\n\033[0m'
-		echo -e "\033[38;5;214m\n[*] Cleaning up...[*]\n\033[0m"
-		rm -vrf $(pwd)/ligolo-selfcerts    # clean up the self-signed certificates
-		exit;;
-	*) 
-		echo -e '\033[31m\n[x] Invalid option. Please select a valid option.\n\033[0m'
-		return
-		;;
-	esac
+		[iI]) 
+			echo -e '\033[0;32m\n[+] Interface information:\n    ----------------------\n\033[0m'
+			get_info
+			menu
+			return
+			;;
+		[qQ]) 
+			echo -e '\033[38;5;214m\n[***] Exiting...See ya! [***]\n\033[0m'
+			echo -e "\033[38;5;214m\n[*] Cleaning up...[*]\n\033[0m"
+			rm -vrf $(pwd)/ligolo-selfcerts    # clean up the self-signed certificates
+			exit;;
+		*) 
+			echo -e '\033[31m\n[x] Invalid option. Please select a valid option.\n\033[0m'
+			continue
+			;;
+		esac
+	done
 }
 
 # Main function

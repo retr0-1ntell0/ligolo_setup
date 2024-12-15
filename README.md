@@ -4,7 +4,7 @@ It is easy to use and had to share it for me not to lose it again because I am l
 It is straight forward and really easy to use.
 
 ### Requirement
-The only requirement so far is to have root access or password to be able to make it work. If you are having issues running the commands you are proably missing `iproute` or `iproute2` package depending on your OS.
+The only requirement so far is to have root access or password to be able to make it work. If you are having issues running the commands you are proably missing `iproute` or `iproute2`, `awk`, `grep`, `xargs` and `nl` packages depending on your OS. Of course, you need to have `ligolo-ng` installed and the proxy having the name `ligolo-proxy` in your PATH.
 
 On Debian/Ubuntu-based distributions:
 ```
@@ -43,7 +43,11 @@ Here are some screenshots:
 
 ![alt text](image.png)
 
-The script will ask you to choose an option and then it will do the job for you. But if you are having issues, just run the script again and it will ask you again. 
+Here is a video demo:
+
+
+
+The script will ask you to choose an option and then it will do the job for you. But if you are having issues. You can contact me on [Twitter/X](https://x.com/0xretr0__) or [Discord](https://discordapp.com/users/1098316374125854721) and I will be there to help. If you want to improve this script, feel free to open an issue or a pull request.
 
 > P.S: I am not responsible for any damage or loss of data that might happen if you are using this script, which I doubt will ever happen. Use it at your own risk. Always make sure that you added the `tuntap` interface and the route before starting the proxy. Otherwise, you might end up not being able to use the proxy or the script.
 
@@ -55,7 +59,13 @@ Keep hacking and enjoy 😄
 ## Improvements
 @TODO
 This is not its final form, it can always get better.
-* [ ] Add a way to delete ligolo routes.
-* [ ] Add a verification/confirmation of the route input.
-* [ ] Do not start the `ligolo-proxy` without a new route on the interface.
+* [x] Add a way to delete ligolo routes.
+* [x] Add a verification/confirmation of the route input.
+* [x] Do not start the `ligolo-proxy` without a new route on the interface.
+* [x] Add a way to add a new route to the existing interface.
+* [x] Add a way to add a new tuntap interface.
+* [x] Add a way to delete a route from the existing interface.
 * [ ] Make a video demo
+
+At this point, I am not sure if I will continue to improve this script.
+I am open to suggestions and improvements. Feel free to open an issue or a pull request.
