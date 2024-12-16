@@ -43,11 +43,9 @@ Here is a screenshot of the script banner:
 
 ![alt text](image.png)
 
-Here is a video demo of some use cases:
+Here is a GIF of the script in action:
 
-![Demo](ligolo-setup_demo.GIF)
-
-Music: [Purple Planet Music](https://www.purple-planet.com/tracks/rapid-transit)
+![Demo](ligolo-setup-demo.GIF)
 
 
 The script will ask you to choose an option and then it will do the job for you. But if you are having issues. You can contact me on [Twitter/X](https://x.com/0xretr0__) or [Discord](https://discordapp.com/users/1098316374125854721) and I will be there to help. If you want to improve this script, feel free to open an issue or a pull request.
