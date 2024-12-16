@@ -1,7 +1,7 @@
 ## Ligolo setup commands
 I love ligolo and love using it. This small bash script helps me with running the initial setup for adding a new tuntap device on my OS.
 It is easy to use and had to share it for me not to lose it again because I am lazy running these commands everytime I want to use ligolo.
-It is straight forward and really easy to use.
+It is straight forward and really easy to use. Pluss once you are done, you can delete the interface and the route if you want. While quitting `ligolo-proxy` you are not quitting the script. So you can always come back to it in case you want to add more routes, delete routes, add more interfaces, delete interfaces, look at the `ifconfig` of the interfaces, start the proxy, quit the proxy, verify the `ligolo` interface, and quit the script.
 
 ### Requirement
 The only requirement so far is to have root access or password to be able to make it work. If you are having issues running the commands you are proably missing `iproute` or `iproute2`, `awk`, `grep`, `xargs` and `nl` packages depending on your OS. Of course, you need to have `ligolo-ng` installed and the proxy having the name `ligolo-proxy` in your PATH.
@@ -39,12 +39,15 @@ Once this step is done we are ready to roll, now just execute it and make a choi
 ```bash
 ./ligolo-setup.sh
 ```
-Here are some screenshots:
+Here is a screenshot of the script banner:
 
 ![alt text](image.png)
 
-Here is a video demo:
+Here is a video demo of some use cases:
 
+[Click here to watch the video](./ligolo-setup_demo.mp4)
+
+Music: [Purple Planet Music](https://www.purple-planet.com/tracks/rapid-transit)
 
 
 The script will ask you to choose an option and then it will do the job for you. But if you are having issues. You can contact me on [Twitter/X](https://x.com/0xretr0__) or [Discord](https://discordapp.com/users/1098316374125854721) and I will be there to help. If you want to improve this script, feel free to open an issue or a pull request.
@@ -65,7 +68,7 @@ This is not its final form, it can always get better.
 * [x] Add a way to add a new route to the existing interface.
 * [x] Add a way to add a new tuntap interface.
 * [x] Add a way to delete a route from the existing interface.
-* [ ] Make a video demo
+* [x] Make a video demo
 
 At this point, I am not sure if I will continue to improve this script.
 I am open to suggestions and improvements. Feel free to open an issue or a pull request.
