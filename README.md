@@ -45,7 +45,7 @@ Here is a screenshot of the script banner:
 
 Here is a video demo of some use cases:
 
-[Click here to watch the video](./ligolo-setup_demo.mp4)
+![Demo](ligolo-setup_demo.GIF)
 
 Music: [Purple Planet Music](https://www.purple-planet.com/tracks/rapid-transit)
 
