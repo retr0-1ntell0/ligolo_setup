@@ -1,5 +1,6 @@
 #/bin/bash
-# Author: retr0	
+
+# Author: 1ntell0	
 # Date: 2024-12-15
 # Description: Setup ligolo	proxy
 # Usage: ./ligolo-setup.sh
