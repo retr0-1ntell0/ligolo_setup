@@ -22,7 +22,7 @@ A full write up of this script can be found [here](https://retr0-1ntell0.github.
    ```bash
    chmod +x ligolo_setup.sh
    ```
-3. Download the linux binary for `ligolo-proxy` from [here](https://github.com/nicocha30/ligolo-ng/releases)
+3. Download the linux binary for `ligolo-ng` [here](https://github.com/nicocha30/ligolo-ng/releases)
 4. Change the name of the binary to `ligolo-proxy` and move it to `/usr/bin/` or anywhere else you want as long it's the PATH of executable binaries.
 5. Run the script   
    ```bash
