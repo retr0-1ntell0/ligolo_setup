@@ -330,56 +330,82 @@ get_info(){
     menu
 }
 
+
+# Function to validate IP:PORT format
+validate_laddr() {
+    local laddr=$1
+    # Matches <IP>:<PORT> where IP is 4 octets and Port is 1-5 digits
+    if [[ $laddr =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}:[0-9]{1,5}$ ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Helper to check if port is privileged (<1024)
+is_privileged_port() {
+    local port=$(echo "$1" | cut -d':' -f2)
+    if [[ "$port" -lt 1024 ]]; then
+        return 0 
+    else
+        return 1 
+    fi
+}
+
 start_proxy(){
     exp=$(which ligolo-proxy 2>/dev/null | head -n 1)
-    
     DEVICES=$(ip -br a | grep lig | awk '{print $1}')
     
     if [ -z "$DEVICES" ]; then
         echo -e '\033[0;31m[X] ligolo/lig interface does not exist.\n\033[0m'
-        echo -e "\033[38;5;214m[X] Can't start the proxy. Please create a new tuntap interface first.\n\033[0m"
-        menu
         return
     fi
     
+    # Interface selection
     if [ "$(echo "$DEVICES" | wc -l)" -gt 1 ]; then
-        echo -e "\033[0;34m[?] Multiple ligolo interfaces found.\n[>>] Please select the interface to start the proxy on (or type \033[0;32m3\033[0;34m to quit):\033[0m"
+        echo -e "\033[0;34m[?] Multiple ligolo interfaces found.\033[0m"
         select selected_interface in $DEVICES "Quit"; do
-            if [[ "$selected_interface" == "Quit" ]]; then
-                echo -e "\n\033[0;33m[-] Exiting proxy setup...\033[0m\n"
-                menu
-                return
-            elif [[ -n "$selected_interface" ]]; then
-                break
-            else
-                echo -e '\n\033[0;31m[X] Invalid selection. Please select a valid interface or \033[0;32m"type 3"\033[0;31m to exit.\n\033[0m\n'
-            fi
+            [[ "$selected_interface" == "Quit" ]] && return
+            [[ -n "$selected_interface" ]] && break
         done
     else
         selected_interface="$DEVICES"
     fi
-    
-    # Check if routes are present for the selected interface
-    routes=$(ip route | grep "$selected_interface")
-    
-    if [ -z "$routes" ]; then
-        echo -e "\033[0;31m[X] No routes found on the selected \033[0;32m$selected_interface\033[0;31m interface!\n\033[0m"
-        echo -e "\033[38;5;214m[-] Please add a route to the interface before starting the proxy.\n\033[0m"
-        menu
+
+    if [ -z "$exp" ]; then
+        echo -e '\033[0;31m[X] ligolo-proxy binary not found!\n\033[0m'
         return
     fi
 
-    # If the ligolo-proxy binary is found, proceed to start it
-    if [ -z "$exp" ]; then
-        echo -e '\033[0;31m[X] ligolo-proxy binary not found!\n\033[0m'
-        echo -e "\033[38;5;214m[X] Please install ligolo-proxy first.\n\033[0m"
-        menu
-        return
+    # Input handling
+    echo -e "\033[0;34m[?] Enter listening address [Default: 0.0.0.0:11601]\033[0m"
+    echo -e "\033[0;33m[!] Note: Ports < 1024 will require sudo elevation.\033[0m"
+    echo -ne "\033[0;34m[>>] IP:PORT (or press Enter to skip): \033[0m"
+    echo -ne "\033[0;32m"
+    read laddr
+    echo -ne "\033[0m"
+
+    # Default if empty
+    if [ -z "$laddr" ]; then
+        laddr="0.0.0.0:11601"
     else
-        echo -e '\n\033[0;32m[+] ligolo-proxy binary found!\n\033[0m'
-        echo -e "\033[0;32m[+] Starting ligolo-proxy...\n\033[0m"
-        $exp -selfcert
+        # Validate format if not empty
+        until validate_laddr "$laddr"; do
+            echo -e "\033[0;31m[X] Invalid Format! Use IP:PORT (e.g., 0.0.0.0:80)\033[0m"
+            echo -ne "\033[0;34m[>>] IP:PORT: \033[0m"
+            read laddr
+        done
     fi
+
+    # Determine if sudo is needed for privileged ports
+    CMD="$exp -selfcert -laddr $laddr"
+    if is_privileged_port "$laddr"; then
+        echo -e "\033[0;33m[*] Privileged port detected. Requesting sudo...\033[0m"
+        CMD="sudo $CMD"
+    fi
+
+    echo -e "\n\033[0;32m[+] Executing: $CMD\n\033[0m"
+    eval $CMD
 }
 
 quit(){
@@ -393,8 +419,8 @@ quit(){
         # Check if ligolo-selfcerts exists before cleaning
         if [ -d "$(pwd)/ligolo-selfcerts" ]; then
             echo -e "\033[38;5;214m\n[*] Cleaning up...[*]\n\033[0m"
-            rm -vrf $(pwd)/ligolo-selfcerts    
-            echo -e "\033[32m\n[*] Selfcerts cleaned up successfully! [*]\n\033[0m"
+            rm -vrf $(pwd)/ligolo-selfcerts && rm -vf ligolo-ng.history ligolo-ng.yaml
+            echo -e "\033[32m\n[*] Files and Folders cleaned up successfully! [*]\n\033[0m"
         fi
         exit
     else
